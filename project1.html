@@ -18,6 +18,9 @@
     
     <!-- Lottie Player -->
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
 </head>
 <body>
 
@@ -169,20 +172,53 @@
             <br>
             <div class="row">
                 <p class="subhead">Visual Designs </p>
-                <div class="col-sm-12">
-                <div class="imgdiv">
-                   <img src="./images/screens.webp" style="width: -webkit-fill-available" alt="Card Image">
-                </div>
             </div>
          
-           </div><br><br>
-           <!-- <div class="row" style="margin-bottom: 50px;">
-            <p class="subhead">Note </p>
-            <div class="col-sm-12">
-                <p class="parasub">This case study provides a brief overview of a project I've worked on. As the project has not yet launched, I'm unable to showcase all of the screen designs.</p>
+           </div>
+
+           <div class="container-fluid">
+       
+            <div class="tz-gallery">
+        
+                <div class="row">
+        
+                   
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d1.webp">
+                            <img src="./images/d1.webp" alt="Park">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d2.webp">
+                            <img src="./images/d2.webp" alt="Tunnel">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d3.webp">
+                            <img src="./images/d3.webp" alt="Traffic">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d4.webp">
+                            <img src="./images/d4.webp" alt="Coast">
+                        </a>
+                    </div> 
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d5.webp">
+                            <img src="./images/d5.webp" alt="Rails">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d5.webp">
+                            <img src="./images/d6.webp" alt="Rails">
+                        </a>
+                    </div>
+        
+                </div>
+        
             </div>
-     
-           </div> -->
+        
+        </div>
            
 
                
@@ -213,7 +249,10 @@
 
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.tz-gallery');
+</script>
 
 
 <!-- Bootstrap 3 JS and jQuery -->
