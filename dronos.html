@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dronos — Case Study · Sanjith C</title>
+    
+    <!-- Bootstrap 3 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Lottie Player -->
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
+
+    <style>
+      :root {
+        --bg:      #F7F3EE;
+        --bg2:     #EFE9E1;
+        --bg3:     #E6DDD3;
+        --text:    #1C1915;
+        --text-dim:#7A706A;
+        --accent:  #9B5E2A;
+        --accent2: #C07A3E;
+        --border2: rgba(28,25,21,0.09);
+        --nav-h:   65px;
+        --font-display: 'Cormorant Garamond', serif;
+        --font-body:    'DM Sans', sans-serif;
+        --font-mono:    'Space Mono', monospace;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { font-size: 14px; scroll-behavior: smooth; }
+      body { background: var(--bg2); color: var(--text); font-family: var(--font-body); font-weight: 300; cursor: none; }
+
+      ::-webkit-scrollbar { width: 3px; }
+      ::-webkit-scrollbar-track { background: var(--bg2); }
+      ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+      /* CURSOR */
+      .cursor      { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+      .cursor-ring { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(155,94,42,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; }
+
+      /* PROGRESS */
+      .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); z-index: 3000; width: 0%; transition: width 0.1s linear; }
+
+      /* ── NAV ───────────────────────────────── */
+      .nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        height: var(--nav-h);
+        background: rgba(247,243,238,0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 48px;
+        gap: 20px;
+      }
+
+      .nav-left  { display: flex; align-items: center; gap: 24px; min-width: 0; }
+      .nav-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+
+      .nav-logo  { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--text); text-decoration: none; flex-shrink: 0; }
+      .nav-logo span { color: var(--accent); }
+
+      .nav-sep   { width: 1px; height: 18px; background: var(--border2); flex-shrink: 0; }
+
+      .nav-back  { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; display: flex; align-items: center; gap: 7px; transition: color 0.2s; flex-shrink: 0; }
+      .nav-back::before { content: '←'; font-size: 13px; }
+      .nav-back:hover { color: var(--accent); }
+
+      .nav-title { min-width: 0; overflow: hidden; }
+      .nav-title-label { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); }
+      .nav-title-name  { font-family: var(--font-display); font-size: 17px; font-weight: 400; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+
+      .nav-meta { display: flex; gap: 20px; }
+      .nav-meta-item { display: flex; flex-direction: column; align-items: flex-end; }
+      .nav-meta-l { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); }
+      .nav-meta-v { font-size: 12px; font-weight: 400; color: var(--text); }
+
+      .btn-dl {
+        font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--accent); border: 1px solid var(--accent); padding: 7px 16px;
+        text-decoration: none; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+      }
+      .btn-dl:hover { background: var(--accent); color: var(--bg); }
+
+      /* ── PAGE BODY ─────────────────────────── */
+      .page-body { padding-top: var(--nav-h); min-height: 100vh; }
+
+      /* ── IMAGE CONTAINER ────────────────────── */
+      .cs-image-wrap {
+        /* max-width: 900px;
+        margin: 0 auto;
+        padding: 48px 24px 80px; */
+      }
+
+      .cs-image-wrap img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 2px;
+        box-shadow: 0 4px 40px rgba(28,25,21,0.1), 0 1px 4px rgba(28,25,21,0.06);
+      }
+
+      /* ── FOOTER ─────────────────────────────── */
+      .page-footer {
+        padding: 24px 48px;
+        border-top: 1px solid var(--border2);
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .footer-copy { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+      .footer-links { display: flex; gap: 16px; align-items: center; }
+      .footer-link  { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+      .footer-link:hover { color: var(--accent); }
+
+      /* MOBILE */
+      @media (max-width: 768px) {
+        .nav { padding: 0 20px; gap: 12px; }
+        .nav-title, .nav-meta, .nav-sep:last-of-type { display: none; }
+        .cs-image-wrap { padding: 32px 16px 60px; }
+        .page-footer { flex-direction: column; text-align: center; padding: 20px; gap: 12px; }
+        .nav-sep { display: none; }
+        .nav-back + .nav-sep { display: none; }
+      }
+      @media (max-width: 1024px) and (min-width: 769px) {
+        .nav-meta { display: none; }
+      }
+
+      .img-responsive { width: 100%; height: auto; }
+      .tz-gallery img { width: 100%; height: auto; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo">S<span>.</span>C</a>
+    <div class="nav-sep"></div>
+    <a href="index.html#works" class="nav-back">All Works</a>
+    <div class="nav-sep"></div>
+    <div class="nav-title">
+      <div class="nav-title-label">Case Study</div>
+      <div class="nav-title-name">Dronos — Drone Ops Platform</div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="nav-meta">
+      <div class="nav-meta-item">
+        <span class="nav-meta-l">Client</span>
+        <span class="nav-meta-v">Aerodyne</span>
+      </div>
+      <div class="nav-meta-item">
+        <span class="nav-meta-l">Timeline</span>
+        <span class="nav-meta-v">9 Months</span>
+      </div>
+      <div class="nav-meta-item">
+        <span class="nav-meta-l">Role</span>
+        <span class="nav-meta-v">UX/UI Designer</span>
+      </div>
+    </div>
+    <a href="./images/dronos-download.png" download="Dronos_CaseStudy_SanjithC.png" class="btn-dl">↓ Download</a>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<main class="page-body">
+<section class="content-section">
+    <div class="container">
+        <div class="featuredwork">
+          
+            <div class="text">
+                <h1 class="feature">Dronos</h1>
+            </div>
+        </div>
+        <br>
+        <div class="inner">
+            <div>
+            <p class="subhead">Project Overview </p>
+            <p class="parasub">In this case study, we design a UI/UX solution for a SaaS application that leverages drone surveillance for inspecting telecommunications (telco) towers. The drone autonomously captures high-resolution images and videos of towers, feeding them into our application where users can identify damages,
+                 analyze issues, and generate detailed inspection reports.</p>
+            </div><br>
+            <div>
+                <p class="intr">Project :<b> Dronos </b> &nbsp;&nbsp;&nbsp;&nbsp;Sector :<b> Drone Technology(Saas) </b> 
+                    &nbsp;&nbsp;&nbsp;&nbsp;  Role :<b> UX UI Designer </b>&nbsp;&nbsp;&nbsp;&nbsp; Timeline :<b> 9 Months </b>
+                </p> 
+            </div>
+            <br>
+            <div>
+                 <p class="subhead">Problem Statement </p>
+             <p class="parasub">- Telco tower inspections are labor-intensive, dangerous, and costly when done manually.</p> 
+             <p class="parasub">- Traditional inspection methods often involve human inspectors climbing towers, taking notes, and capturing photos.</p>  
+             <p class="parasub">- This process is time-consuming, prone to errors, and poses significant safety risks.</p> 
+             <p class="parasub">- Generating reports is a huge task when large set of data involved </p>   <br> 
+            </div>
+            <br>
+            <div class="row">
+                 <p class="subhead">Design Process </p><br><br>
+                 <div class="col-sm-12">
+                 <div class="imgdiv">
+                    <img src="./images/dd.webp" class="img-responsive" alt="Card Image">
+                 </div>
+                </div>
+          
+            </div><br><br>
+            <div class="container">
+                <p class="subhead">Key Features </p><br>
+                
+                <div class="row">
+                    <!-- Feature 1 -->
+                    <div class="col-sm-6 col-md-4">
+                        <div class="feature-box">
+                            <h4>Mission Planning and Drone Control Dashboard</h4>
+                            <ul>
+                                <li>A map-based interface for planning drone missions over telco towers.</li>
+                                <li>Features for setting waypoints, flight paths, and altitude levels.</li>
+                                <li>Real-time drone control and status monitoring with battery level, flight duration, and camera feeds.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="col-sm-6 col-md-4">
+                        <div class="feature-box">
+                            <h4>Image and Video Data Management</h4>
+                            <ul>
+                                <li>A centralized repository for all images and videos captured by the drone.</li>
+                                <li>Features to filter, sort, and search media files based on location, time, or type of damage.</li>
+                                <li>AI-powered tagging system to automatically label damages (e.g., rust, cracks, loose bolts).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="col-sm-6 col-md-4">
+                        <div class="feature-box">
+                            <h4>Damage Detection and Analysis Tool</h4>
+                            <ul>
+                                <li>An interactive interface for users to mark and categorize damages.</li>
+                                <li>Zoom and pan capabilities for detailed inspection.</li>
+                                <li>Integration of AI/ML algorithms to assist in detecting potential issues from images (e.g., structural damage, vegetation growth, loose wires).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <!-- Feature 4 -->
+                    <div class="col-sm-6 col-md-4">
+                        <div class="feature-box">
+                            <h4>Report Generation Module</h4>
+                            <ul>
+                                <li>Automated report generation with customizable templates.</li>
+                                <li>Options to add annotations, comments, and recommendations.</li>
+                                <li>Export options for PDF, Excel, and direct sharing via email.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Feature 5 -->
+                    <div class="col-sm-6 col-md-4">
+                        <div class="feature-box">
+                            <h4>Real-time Collaboration and Notifications</h4>
+                            <ul>
+                                <li>Collaborative tools like chat, commenting, and file sharing.</li>
+                                <li>Real-time notifications for mission completion, detected damages, or urgent issues.</li>
+                                <li>Role-based access controls for different user types (inspectors, managers, analysts).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Feature 6 -->
+                    <div class="col-sm-6 col-md-4">
+                        <div class="feature-box">
+                            <h4>Performance Analytics and Insights Dashboard</h4>
+                            <ul>
+                                <li>Visual dashboard showcasing key metrics like the number of inspections completed, detected damages, and maintenance tasks.</li>
+                                <li>Heat maps for high-damage areas to prioritize maintenance.</li>
+                                <li>Predictive analytics for maintenance scheduling based on historical data.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <p class="subhead">Visual Designs </p>
+            </div>
+         
+           </div>
+
+           <div class="container-fluid">
+       
+            <div class="tz-gallery">
+        
+                <div class="row">
+        
+                   
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d1.webp">
+                            <img src="./images/d1.webp" alt="Park">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d2.webp">
+                            <img src="./images/d2.webp" alt="Tunnel">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d3.webp">
+                            <img src="./images/d3.webp" alt="Traffic">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d4.webp">
+                            <img src="./images/d4.webp" alt="Coast">
+                        </a>
+                    </div> 
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d5.webp">
+                            <img src="./images/d5.webp" alt="Rails">
+                        </a>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <a class="lightbox" href="./images/d6.webp">
+                            <img src="./images/d6.webp" alt="Rails">
+                        </a>
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+        </div>
+           
+
+               
+             
+
+        </div>
+
+          
+    </div>
+</section>
+</main>
+
+<footer class="page-footer">
+  <span class="footer-copy">&#169; 2026 Sanjith C &middot; Senior UI/UX Designer &middot; Coimbatore</span>
+  <div class="footer-links">
+    <a href="index.html#works" class="footer-link">← All Works</a>
+    <a href="index.html#contact" class="footer-link">Contact</a>
+    <a href="#" class="footer-link" id="ftTop">↑ Top</a>
+  </div>
+</footer>
+
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.tz-gallery');
+</script> -->
+
+
+<!-- Bootstrap 3 JS and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+(function () {
+  /* Cursor */
+  var cur  = document.getElementById('cursor');
+  var ring = document.getElementById('cursorRing');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', function (e) {
+    mx = e.clientX; my = e.clientY;
+    cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  });
+  (function tick() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(tick);
+  })();
+  document.querySelectorAll('a, button').forEach(function (el) {
+    el.addEventListener('mouseenter', function () { ring.style.width = '50px'; ring.style.height = '50px'; });
+    el.addEventListener('mouseleave', function () { ring.style.width = '34px'; ring.style.height = '34px'; });
+  });
+
+  /* Progress bar */
+  var prog = document.getElementById('prog');
+  window.addEventListener('scroll', function () {
+    var t = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (t > 0 ? (window.scrollY / t) * 100 : 0) + '%';
+  });
+
+  /* Back to top */
+  document.getElementById('ftTop').addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
