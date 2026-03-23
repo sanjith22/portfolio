@@ -1,64 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dronos — Case Study · Sanjith C</title>
-    
-    <!-- Bootstrap 3 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Lottie Player -->
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dronos TELCO — Case Study · Sanjith C</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    <!-- <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
+  :root {
+    --bg: #f9f8f5;
+    --ink: #1a1a1a;
+    --ink-2: #555;
+    --ink-3: #999;
+    --accent: #1a1a1a;
+    --border: #e5e3de;
+    --max: 780px;
+  }
 
-    <style>
-      :root {
-        --bg:      #F7F3EE;
-        --bg2:     #EFE9E1;
-        --bg3:     #E6DDD3;
-        --text:    #1C1915;
-        --text-dim:#7A706A;
-        --accent:  #9B5E2A;
-        --accent2: #C07A3E;
-        --border2: rgba(28,25,21,0.09);
-        --nav-h:   65px;
-        --font-display: 'Cormorant Garamond', serif;
-        --font-body:    'DM Sans', sans-serif;
-        --font-mono:    'Space Mono', monospace;
-      }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
 
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-      html { font-size: 14px; scroll-behavior: smooth; }
-      body { background: var(--bg2); color: var(--text); font-family: var(--font-body); font-weight: 300; cursor: none; }
-
-      ::-webkit-scrollbar { width: 3px; }
-      ::-webkit-scrollbar-track { background: var(--bg2); }
-      ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
-
-      /* CURSOR */
-      .cursor      { position: fixed; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
-      .cursor-ring { position: fixed; width: 34px; height: 34px; border: 1px solid rgba(155,94,42,0.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.2s, height 0.2s; }
-
-      /* PROGRESS */
-      .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); z-index: 3000; width: 0%; transition: width 0.1s linear; }
-
-      /* ── NAV ───────────────────────────────── */
-      .nav {
+  /* ── NAV ── */
+     .nav {
         position: fixed;
         top: 0; left: 0; right: 0;
         z-index: 1000;
-        height: var(--nav-h);
+        height: 80px;
         background: rgba(247,243,238,0.97);
         backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--border2);
@@ -90,68 +64,437 @@
       .nav-meta-l { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); }
       .nav-meta-v { font-size: 12px; font-weight: 400; color: var(--text); }
 
-      .btn-dl {
-        font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-        color: var(--accent); border: 1px solid var(--accent); padding: 7px 16px;
-        text-decoration: none; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
-      }
-      .btn-dl:hover { background: var(--accent); color: var(--bg); }
+  /* ── CONTAINER ── */
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
 
-      /* ── PAGE BODY ─────────────────────────── */
-      .page-body { padding-top: var(--nav-h); min-height: 100vh; }
+  /* ── HERO ── */
+  .hero {
+    padding: 5.5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
 
-      /* ── IMAGE CONTAINER ────────────────────── */
-      .cs-image-wrap {
-        /* max-width: 900px;
-        margin: 0 auto;
-        padding: 48px 24px 80px; */
-      }
+  .hero-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 1.4rem;
+  }
 
-      .cs-image-wrap img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 2px;
-        box-shadow: 0 4px 40px rgba(28,25,21,0.1), 0 1px 4px rgba(28,25,21,0.06);
-      }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.2rem;
+    color: var(--ink);
+  }
 
-      /* ── FOOTER ─────────────────────────────── */
-      .page-footer {
-        padding: 24px 48px;
-        border-top: 1px solid var(--border2);
-        background: var(--bg);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-      }
-      .footer-copy { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
-      .footer-links { display: flex; gap: 16px; align-items: center; }
-      .footer-link  { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
-      .footer-link:hover { color: var(--accent); }
+  .hero-desc {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    max-width: 520px;
+    margin-bottom: 2.8rem;
+  }
 
-      /* MOBILE */
-      @media (max-width: 768px) {
-        .nav { padding: 0 20px; gap: 12px; }
-        .nav-title, .nav-meta, .nav-sep:last-of-type { display: none; }
-        .cs-image-wrap { padding: 32px 16px 60px; }
-        .page-footer { flex-direction: column; text-align: center; padding: 20px; gap: 12px; }
-        .nav-sep { display: none; }
-        .nav-back + .nav-sep { display: none; }
-      }
-      @media (max-width: 1024px) and (min-width: 769px) {
-        .nav-meta { display: none; }
-      }
+  .hero-meta {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    width: fit-content;
+  }
 
+  .meta-item {
+    padding: 0.85rem 1.6rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .meta-item:last-child { border-right: none; }
+
+  .meta-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.15rem;
+  }
+
+  .meta-val {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-of-type { border-bottom: none; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-num {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+  }
+
+  .section-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ── METRICS ── */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .metric {
+    padding: 1.6rem 1.4rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .metric:last-child { border-right: none; }
+
+  .metric-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+    color: var(--ink-2);
+    line-height: 1.4;
+  }
+
+  .metric-sub {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 0.25rem;
+  }
+
+  /* ── PROBLEMS ── */
+  .problem-list {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .problem-item {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    background: #fff;
+  }
+
+  .problem-item:last-child { border-bottom: none; }
+
+  .problem-n {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+  }
+
+  .problem-text {
+    font-size: 0.87rem;
+    color: var(--ink-2);
+  }
+
+  .problem-text strong { color: var(--ink); font-weight: 500; }
+
+  .badge {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .badge-high { background: #fef0f0; color: #c0392b; border: 1px solid #f5c6c6; }
+  .badge-med  { background: #fffbf0; color: #b7770d; border: 1px solid #f0e2b0; }
+
+  /* ── TABLE ── */
+  .research-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.83rem;
+  }
+
+  .research-table thead th {
+    background: #fff;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    text-align: left;
+    padding: 0.8rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .research-table td {
+    padding: 0.95rem 1.2rem;
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .research-table tr:last-child td { border-bottom: none; }
+
+  .research-table td strong { color: var(--ink); font-weight: 500; }
+
+  .pill {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 20px;
+    background: #f0f0f0;
+    color: var(--ink-2);
+    border: 1px solid var(--border);
+  }
+
+  /* ── PRINCIPLES ── */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .principle {
+    background: #fff;
+    padding: 1.6rem;
+  }
+
+  .principle-tag {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.5rem;
+  }
+
+  .principle h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--ink);
+  }
+
+  .principle p { font-size: 0.8rem; color: var(--ink-2); }
+
+  /* ── JOURNEY ── */
+  .journey-steps {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .journey-step {
+    background: #fff;
+    padding: 1.4rem 0.8rem;
+    text-align: center;
+  }
+
+  .step-icon { font-size: 1.1rem; margin-bottom: 0.6rem; display: block; }
+
+  .step-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  .step-time {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px 6px 0 0;
+    overflow: hidden;
+  }
+
+  .outcome {
+    background: #fff;
+    padding: 1.8rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .outcome-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+    white-space: nowrap;
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  .outcome-text h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--ink);
+  }
+
+  .outcome-text p { font-size: 0.78rem; color: var(--ink-2); }
+
+  .metrics-secondary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    overflow: hidden;
+  }
+
+  .metrics-secondary .metric {
+    background: var(--bg);
+  }
+
+  /* ── TAKEAWAYS ── */
+  .takeaways {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .takeaway {
+    background: #fff;
+    padding: 1.6rem;
+  }
+
+  .takeaway-tag {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.5rem;
+  }
+
+  .takeaway h4 {
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--ink);
+  }
+
+  .takeaway p { font-size: 0.78rem; color: var(--ink-2); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--ink-3);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.78rem;
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+
+  .footer-links a:hover { color: var(--ink); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
+    .wrap { padding: 0 1.5rem; }
+    .metrics, .metrics-secondary { grid-template-columns: repeat(2, 1fr); }
+    .principles-grid, .outcomes-grid, .takeaways { grid-template-columns: 1fr; }
+    .journey-steps { grid-template-columns: repeat(3, 1fr); }
+    .hero h1 { font-size: 1.8rem; }
+    .hero-meta { flex-wrap: wrap; }
+  }
+  
       .img-responsive { width: 100%; height: auto; }
       .tz-gallery img { width: 100%; height: auto; display: block; }
-    </style>
+</style>
 </head>
 <body>
-
-<div class="progress" id="prog"></div>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
 <nav class="nav">
@@ -180,133 +523,148 @@
         <span class="nav-meta-v">UX/UI Designer</span>
       </div>
     </div>
-    <a href="./images/dronos-download.png" download="Dronos_CaseStudy_SanjithC.png" class="btn-dl">↓ Download</a>
+   
   </div>
 </nav>
 
-<!-- CONTENT -->
-<main class="page-body">
-<section class="content-section">
-    <div class="container">
-        <div class="featuredwork">
-          
-            <div class="text">
-                <h1 class="feature">Dronos</h1>
-            </div>
-        </div>
-        <br>
-        <div class="inner">
-            <div>
-            <p class="subhead">Project Overview </p>
-            <p class="parasub">In this case study, we design a UI/UX solution for a SaaS application that leverages drone surveillance for inspecting telecommunications (telco) towers. The drone autonomously captures high-resolution images and videos of towers, feeding them into our application where users can identify damages,
-                 analyze issues, and generate detailed inspection reports.</p>
-            </div><br>
-            <div>
-                <p class="intr">Project :<b> Dronos </b> &nbsp;&nbsp;&nbsp;&nbsp;Sector :<b> Drone Technology(Saas) </b> 
-                    &nbsp;&nbsp;&nbsp;&nbsp;  Role :<b> UX UI Designer </b>&nbsp;&nbsp;&nbsp;&nbsp; Timeline :<b> 9 Months </b>
-                </p> 
-            </div>
-            <br>
-            <div>
-                 <p class="subhead">Problem Statement </p>
-             <p class="parasub">- Telco tower inspections are labor-intensive, dangerous, and costly when done manually.</p> 
-             <p class="parasub">- Traditional inspection methods often involve human inspectors climbing towers, taking notes, and capturing photos.</p>  
-             <p class="parasub">- This process is time-consuming, prone to errors, and poses significant safety risks.</p> 
-             <p class="parasub">- Generating reports is a huge task when large set of data involved </p>   <br> 
-            </div>
-            <br>
-            <div class="row">
-                 <p class="subhead">Design Process </p><br><br>
-                 <div class="col-sm-12">
-                 <div class="imgdiv">
-                    <img src="./images/dd.webp" class="img-responsive" alt="Card Image">
-                 </div>
-                </div>
-          
-            </div><br><br>
-            <div class="container">
-                <p class="subhead">Key Features </p><br>
-                
-                <div class="row">
-                    <!-- Feature 1 -->
-                    <div class="col-sm-6 col-md-4">
-                        <div class="feature-box">
-                            <h4>Mission Planning and Drone Control Dashboard</h4>
-                            <ul>
-                                <li>A map-based interface for planning drone missions over telco towers.</li>
-                                <li>Features for setting waypoints, flight paths, and altitude levels.</li>
-                                <li>Real-time drone control and status monitoring with battery level, flight duration, and camera feeds.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Feature 2 -->
-                    <div class="col-sm-6 col-md-4">
-                        <div class="feature-box">
-                            <h4>Image and Video Data Management</h4>
-                            <ul>
-                                <li>A centralized repository for all images and videos captured by the drone.</li>
-                                <li>Features to filter, sort, and search media files based on location, time, or type of damage.</li>
-                                <li>AI-powered tagging system to automatically label damages (e.g., rust, cracks, loose bolts).</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Feature 3 -->
-                    <div class="col-sm-6 col-md-4">
-                        <div class="feature-box">
-                            <h4>Damage Detection and Analysis Tool</h4>
-                            <ul>
-                                <li>An interactive interface for users to mark and categorize damages.</li>
-                                <li>Zoom and pan capabilities for detailed inspection.</li>
-                                <li>Integration of AI/ML algorithms to assist in detecting potential issues from images (e.g., structural damage, vegetation growth, loose wires).</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="row">
-                    <!-- Feature 4 -->
-                    <div class="col-sm-6 col-md-4">
-                        <div class="feature-box">
-                            <h4>Report Generation Module</h4>
-                            <ul>
-                                <li>Automated report generation with customizable templates.</li>
-                                <li>Options to add annotations, comments, and recommendations.</li>
-                                <li>Export options for PDF, Excel, and direct sharing via email.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Feature 5 -->
-                    <div class="col-sm-6 col-md-4">
-                        <div class="feature-box">
-                            <h4>Real-time Collaboration and Notifications</h4>
-                            <ul>
-                                <li>Collaborative tools like chat, commenting, and file sharing.</li>
-                                <li>Real-time notifications for mission completion, detected damages, or urgent issues.</li>
-                                <li>Role-based access controls for different user types (inspectors, managers, analysts).</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Feature 6 -->
-                    <div class="col-sm-6 col-md-4">
-                        <div class="feature-box">
-                            <h4>Performance Analytics and Insights Dashboard</h4>
-                            <ul>
-                                <li>Visual dashboard showcasing key metrics like the number of inspections completed, detected damages, and maintenance tasks.</li>
-                                <li>Heat maps for high-damage areas to prioritize maintenance.</li>
-                                <li>Predictive analytics for maintenance scheduling based on historical data.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <p class="subhead">Visual Designs </p>
-            </div>
-         
-           </div>
+<div class="wrap">
 
-           <div class="container-fluid">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Case Study</div>
+    <h1>Dronos TELCO —<br>Telco Asset Intelligence</h1>
+    <p class="hero-desc">AI-driven inspection and asset management platform for global telecom tower infrastructure. Ranked #1 drone service provider 2021–2023.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-label">Client</div><div class="meta-val">Aerodyne</div></div>
+      <div class="meta-item"><div class="meta-label">Timeline</div><div class="meta-val">6 Months</div></div>
+      <div class="meta-item"><div class="meta-label">Role</div><div class="meta-val">UX/UI Designer</div></div>
+      <div class="meta-item"><div class="meta-label">Platform</div><div class="meta-val">DaaS + SaaS</div></div>
+    </div>
+  </div>
+
+  <!-- 01 SCALE -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">01</span><h2>Platform Scale</h2></div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-val">15,600</div><div class="metric-label">Towers inspected</div><div class="metric-sub">Telco Vertical</div></div>
+      <div class="metric"><div class="metric-val">1,500+</div><div class="metric-label">Assets under management</div><div class="metric-sub">Enterprise Clients</div></div>
+      <div class="metric"><div class="metric-val">800</div><div class="metric-label">Aeroranger field crew</div><div class="metric-sub">Global Ops</div></div>
+      <div class="metric"><div class="metric-val">110/mo</div><div class="metric-label">Tower inspection rate</div><div class="metric-sub">Sustained</div></div>
+    </div>
+  </div>
+
+  <!-- 02 PROBLEMS -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">02</span><h2>Problem Space</h2></div>
+    <div class="problem-list">
+      <div class="problem-item">
+        <div class="problem-n">P.01</div>
+        <div class="problem-text"><strong>Manual climb inspections</strong> — 40–80m tower access daily, inconsistent data capture, frequent re-inspections</div>
+        <div class="badge badge-high">High Risk</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-n">P.02</div>
+        <div class="problem-text"><strong>Fragmented data silos</strong> — footage, defect logs, and work orders across separate systems; clients received static PDFs days later</div>
+        <div class="badge badge-high">High Cost</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-n">P.03</div>
+        <div class="problem-text"><strong>Report generation took 2–3 days</strong> per tower, blocking maintenance decisions and causing renewal friction</div>
+        <div class="badge badge-high">High Impact</div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-n">P.04</div>
+        <div class="problem-text"><strong>AI override rate at 40%</strong> — engineers distrusted model outputs due to lack of confidence scores or visual explainability</div>
+        <div class="badge badge-med">Medium</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 RESEARCH -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">03</span><h2>Research Findings</h2></div>
+    <table class="research-table">
+      <thead>
+        <tr>
+          <th>User Segment</th>
+          <th>Primary Need</th>
+          <th>Top Pain Point</th>
+          <th>Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Field Engineers</strong><br><span style="font-size:0.72rem;color:#999">800 Aerorangers</span></td>
+          <td>Speed ≤3 taps, offline mode, AI confidence visibility</td>
+          <td>App latency on 4G; no offline documentation fallback</td>
+          <td><span class="pill">Contextual Inquiry</span></td>
+        </tr>
+        <tr>
+          <td><strong>Operations Managers</strong><br><span style="font-size:0.72rem;color:#999">Internal Aerodyne</span></td>
+          <td>Mission status overview, daily throughput, exception alerts</td>
+          <td>No real-time visibility; manual report collation</td>
+          <td><span class="pill">Interviews</span></td>
+        </tr>
+        <tr>
+          <td><strong>Telco Clients</strong><br><span style="font-size:0.72rem;color:#999">Enterprise buyers</span></td>
+          <td>Audit trails, degradation trends, CMMS export, SLA views</td>
+          <td>3-day report delay; no mid-flight visibility</td>
+          <td><span class="pill">Stakeholder Sessions</span></td>
+        </tr>
+        <tr>
+          <td><strong>AI Model Behavior</strong><br><span style="font-size:0.72rem;color:#999">94% accuracy</span></td>
+          <td>Trust calibration — users override even correct predictions</td>
+          <td>No confidence score; no visual evidence mapping</td>
+          <td><span class="pill">Usage Analytics</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 04 PRINCIPLES -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">04</span><h2>Design Principles</h2></div>
+    <div class="principles-grid">
+      <div class="principle">
+        <div class="principle-tag">P.01 — Field</div>
+        <h3>Speed Is Safety</h3>
+        <p>Every field interaction resolves in ≤3 taps. Latency is an operational risk at 60m elevation, not just a UX inconvenience.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-tag">P.02 — AI</div>
+        <h3>Explainable AI First</h3>
+        <p>Confidence scores, visual evidence overlays, and one-tap override with reason code. Trust is built through transparency.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-tag">P.03 — System</div>
+        <h3>Progressive Disclosure</h3>
+        <p>Field tool and enterprise dashboard share a data layer; surfaces are role-gated. Complexity is earned, not defaulted.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-tag">P.04 — Flow</div>
+        <h3>Closed Loops</h3>
+        <p>Every defect tag, report approval, and work order has a visible confirmation state. No ambiguous outcomes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 JOURNEY -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">05</span><h2>User Journey — Mission to Report</h2></div>
+    <div class="journey-steps">
+      <div class="journey-step"><span class="step-icon">🗂️</span><div class="step-name">Mission Brief</div><div class="step-time">T − 30 min</div></div>
+      <div class="journey-step"><span class="step-icon">🚁</span><div class="step-name">Live Capture</div><div class="step-time">Real-time</div></div>
+      <div class="journey-step"><span class="step-icon">🤖</span><div class="step-name">AI Review</div><div class="step-time">On-site</div></div>
+      <div class="journey-step"><span class="step-icon">🏗️</span><div class="step-name">Digital Twin</div><div class="step-time">Auto-update</div></div>
+      <div class="journey-step"><span class="step-icon">📋</span><div class="step-name">Auto Report</div><div class="step-time">&lt; 4 hrs</div></div>
+      <div class="journey-step"><span class="step-icon">✅</span><div class="step-name">Client Sign-Off</div><div class="step-time">Same day</div></div>
+    </div>
+  </div>
+
+  <!-- visual Designs-->
+     <div class="section">
+    <div class="section-head"><span class="section-num">06</span><h2>Visual Designs</h2></div>
+   <div class="container-fluid">
        
             <div class="tz-gallery">
         
@@ -349,72 +707,71 @@
             </div>
         
         </div>
-           
-
-               
-             
-
+        </div>
         </div>
 
-          
+  <!-- 06 OUTCOMES -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">07</span><h2>Outcomes</h2></div>
+    <div class="outcomes-grid">
+      <div class="outcome">
+        <div class="outcome-num">23%</div>
+        <div class="outcome-text"><h4>Cost Reduction</h4><p>vs. traditional manual climb inspection model</p></div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num">5×</div>
+        <div class="outcome-text"><h4>Report Turnaround</h4><p>50+ reports/day; down from 3-day manual cycle</p></div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num">50%</div>
+        <div class="outcome-text"><h4>Faster Client Approval</h4><p>Report-to-sign-off via role-specific portal views</p></div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num">35%</div>
+        <div class="outcome-text"><h4>Fewer Inspections Needed</h4><p>Predictive maintenance via living digital twin</p></div>
+      </div>
     </div>
-</section>
-</main>
-
-<footer class="page-footer">
-  <span class="footer-copy">&#169; 2026 Sanjith C &middot; Senior UI/UX Designer &middot; Coimbatore</span>
-  <div class="footer-links">
-    <a href="index.html#works" class="footer-link">← All Works</a>
-    <a href="index.html#contact" class="footer-link">Contact</a>
-    <a href="#" class="footer-link" id="ftTop">↑ Top</a>
+    <div class="metrics-secondary">
+      <div class="metric"><div class="metric-val">0%</div><div class="metric-label">Loss-time injuries since launch</div></div>
+      <div class="metric"><div class="metric-val">3,500+</div><div class="metric-label">Towers inspected via DRONOS</div></div>
+      <div class="metric"><div class="metric-val">−40%</div><div class="metric-label">Unnecessary AI overrides (3 mo.)</div></div>
+      <div class="metric"><div class="metric-val">94%</div><div class="metric-label">AI defect classification accuracy</div></div>
+    </div>
   </div>
+
+  <!-- 07 TAKEAWAYS -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">08</span><h2>Key Takeaways</h2></div>
+    <div class="takeaways">
+      <div class="takeaway">
+        <div class="takeaway-tag">Lesson 01</div>
+        <h4>Context Is the Interface</h4>
+        <p>Same data, radically different surfaces. Field engineer at 60m vs. enterprise client — progressive disclosure was the architecture, not a pattern.</p>
+      </div>
+      <div class="takeaway">
+        <div class="takeaway-tag">Lesson 02</div>
+        <h4>AI Trust Is Designed</h4>
+        <p>94% accuracy wasn't enough. Explainability reduced unnecessary overrides by 40% within 3 months without changing the model.</p>
+      </div>
+      <div class="takeaway">
+        <div class="takeaway-tag">Lesson 03</div>
+        <h4>Safety Is a UX Metric</h4>
+        <p>0% loss-time injury is a design outcome. Removing manual climb workflows changed the conditions for accidents to occur.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2026 Sanjith C · Senior UI/UX Designer · Coimbatore</span>
+  <ul class="footer-links">
+    <li><a href="#">← All Works</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">↑ Top</a></li>
+  </ul>
 </footer>
 
-
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
-<script>
-    baguetteBox.run('.tz-gallery');
-</script> -->
-
-
-<!-- Bootstrap 3 JS and jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<script>
-(function () {
-  /* Cursor */
-  var cur  = document.getElementById('cursor');
-  var ring = document.getElementById('cursorRing');
-  var mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', function (e) {
-    mx = e.clientX; my = e.clientY;
-    cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-  });
-  (function tick() {
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(tick);
-  })();
-  document.querySelectorAll('a, button').forEach(function (el) {
-    el.addEventListener('mouseenter', function () { ring.style.width = '50px'; ring.style.height = '50px'; });
-    el.addEventListener('mouseleave', function () { ring.style.width = '34px'; ring.style.height = '34px'; });
-  });
-
-  /* Progress bar */
-  var prog = document.getElementById('prog');
-  window.addEventListener('scroll', function () {
-    var t = document.documentElement.scrollHeight - window.innerHeight;
-    prog.style.width = (t > 0 ? (window.scrollY / t) * 100 : 0) + '%';
-  });
-
-  /* Back to top */
-  document.getElementById('ftTop').addEventListener('click', function (e) {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-})();
-</script>
 </body>
 </html>
