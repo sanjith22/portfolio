@@ -66,6 +66,8 @@
   .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 1.2rem; color: var(--ink); }
   .hero-desc { font-size: 0.92rem; color: var(--ink-2); max-width: 520px; margin-bottom: 2.8rem; }
   .hero-meta { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; width: fit-content; }
+  .hero-img-wrap { margin-top: 3rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .hero-img-wrap img { width: 100%; display: block; height: auto; }
   .meta-item { padding: 0.85rem 1.6rem; border-right: 1px solid var(--border); }
   .meta-item:last-child { border-right: none; }
   .meta-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.15rem; }
@@ -237,8 +239,11 @@
     <div class="hero-meta">
       <div class="meta-item"><div class="meta-label">Client</div><div class="meta-val">Aerodyne</div></div>
       <div class="meta-item"><div class="meta-label">Timeline</div><div class="meta-val">10 Months</div></div>
-      <div class="meta-item"><div class="meta-label">Role</div><div class="meta-val">Senior UX/UI Designer</div></div>
+      <div class="meta-item"><div class="meta-label">Role</div><div class="meta-val">UX/UI Designer</div></div>
       <div class="meta-item"><div class="meta-label">Platform</div><div class="meta-val">SaaS</div></div>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="./images/dronos-hero.webp" alt="Dronos Platform — Mission Dashboard"/>
     </div>
   </div>
 
@@ -348,27 +353,27 @@
     <div class="designs-grid">
       <div class="design-item">
         <img src="./images/d1.webp" alt="Mission Planning Dashboard"/>
-        <!-- <div class="design-item-label">Mission Planning Dashboard</div> -->
+        <div class="design-item-label">Mission Planning Dashboard</div>
       </div>
       <div class="design-item">
         <img src="./images/d2.webp" alt="Media Management"/>
-        <!-- <div class="design-item-label">Image &amp; Media Management</div> -->
+        <div class="design-item-label">Image &amp; Media Management</div>
       </div>
       <div class="design-item">
         <img src="./images/d3.webp" alt="Damage Detection"/>
-        <!-- <div class="design-item-label">Damage Detection &amp; Analysis</div> -->
+        <div class="design-item-label">Damage Detection &amp; Analysis</div>
       </div>
       <div class="design-item">
         <img src="./images/d4.webp" alt="Report Generation"/>
-        <!-- <div class="design-item-label">Automated Report Generation</div> -->
+        <div class="design-item-label">Automated Report Generation</div>
       </div>
       <div class="design-item">
         <img src="./images/d5.webp" alt="Collaboration"/>
-        <!-- <div class="design-item-label">Real-time Collaboration</div> -->
+        <div class="design-item-label">Real-time Collaboration</div>
       </div>
       <div class="design-item">
         <img src="./images/d6.webp" alt="Analytics Dashboard"/>
-        <!-- <div class="design-item-label">Performance Analytics</div> -->
+        <div class="design-item-label">Performance Analytics</div>
       </div>
     </div>
   </div>
