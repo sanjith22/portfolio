@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dronos — UI/UX Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fafaf9;--surface:#fff;--surface2:#f5f5f4;--surface3:#e7e5e4;--text:#1c1917;--text-dim:#57534e;--text-muted:#a8a29e;--accent:#0d9488;--accent2:#0891b2;--accent-light:#ccfbf1;--border:#e7e5e4;--border-strong:#d6d3d1;--serif:'Instrument Serif',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'JetBrains Mono',monospace}
+html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.7;overflow-x:hidden}
+.case-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(250,250,249,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.case-nav .brand{font-family:var(--serif);font-size:1.1rem}.case-nav .brand em{color:var(--accent);font-style:italic}
+.nav-links{display:flex;gap:1.5rem}.nav-links a{font-size:.7rem;color:var(--text-dim);text-decoration:none;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;transition:color .2s}.nav-links a:hover{color:var(--accent)}
+@media(max-width:640px){.nav-links{display:none}}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 40%,rgba(13,148,136,0.04),transparent 70%);pointer-events:none}
+.hero-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards}
+.hero h1{font-family:var(--serif);font-size:clamp(3rem,8vw,6.5rem);font-weight:400;line-height:1.05;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .4s forwards}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:1.05rem;color:var(--text-dim);max-width:520px;opacity:0;animation:fadeUp .8s .6s forwards}
+.hero-meta{display:flex;gap:2.5rem;margin-top:2.5rem;opacity:0;animation:fadeUp .8s .8s forwards}
+.hero-meta-item{text-align:center}.hero-meta-item .val{font-family:var(--serif);font-size:1.8rem;color:var(--accent)}.hero-meta-item .lbl{font-size:.68rem;color:var(--text-muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-top:.15rem}
+.scroll-hint{position:absolute;bottom:2.5rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--text-muted);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;opacity:0;animation:fadeUp .8s 1s forwards}
+.scroll-hint span{width:1px;height:32px;background:linear-gradient(to bottom,var(--accent),transparent);animation:pulse 2s infinite}
+section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
+.section-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;display:flex;align-items:center;gap:.75rem}
+.section-label::before{content:'';width:24px;height:1px;background:var(--accent)}
+.section-title{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;line-height:1.2;margin-bottom:1.25rem}
+.section-body{color:var(--text-dim);font-size:.9rem;max-width:640px;line-height:1.75}
+.divider{max-width:1100px;margin:0 auto;padding:0 2rem}.divider-line{height:1px;background:var(--border)}
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2rem}
+@media(max-width:768px){.metrics-row{grid-template-columns:repeat(2,1fr)}}
+.metric{text-align:center;padding:1.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px}
+.metric-val{font-family:var(--serif);font-size:2.2rem;color:var(--accent);line-height:1}
+.metric-label{font-size:.7rem;color:var(--text-dim);margin-top:.4rem;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-top:2rem}
+.overview-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem;transition:border-color .3s}.overview-card:hover{border-color:var(--accent)}
+.card-number{font-family:var(--mono);font-size:.6rem;color:var(--text-muted);margin-bottom:.5rem}
+.card-title{font-family:var(--serif);font-size:1.15rem;margin-bottom:.35rem}
+.card-desc{font-size:.78rem;color:var(--text-dim);line-height:1.55}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;align-items:start}
+@media(max-width:768px){.two-col{grid-template-columns:1fr}}
+.persona-compact{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem}
+.persona-compact h3{font-family:var(--serif);font-size:1.3rem;margin-bottom:.15rem}
+.persona-compact .role{font-size:.7rem;color:var(--accent);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.persona-compact p{font-size:.82rem;color:var(--text-dim);line-height:1.6;margin-bottom:.75rem}
+.goal-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.goal-tag{font-size:.68rem;font-family:var(--mono);padding:.3rem .65rem;border-radius:6px;background:var(--accent-light);color:var(--accent);border:1px solid rgba(13,148,136,0.15)}
+.flow-row{display:flex;align-items:center;gap:0;margin-top:1.5rem;flex-wrap:wrap}
+.flow-step{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;flex:1;min-width:100px}
+.flow-step .num{font-family:var(--mono);font-size:.55rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase}
+.flow-step h4{font-size:.82rem;margin-top:.15rem}
+.flow-arrow{width:28px;text-align:center;color:var(--text-muted);font-size:.75rem;flex-shrink:0}
+.image-grid{display:grid;gap:1.25rem;margin-top:2rem}
+.image-grid.cols-2{grid-template-columns:1fr 1fr}.image-grid.cols-3{grid-template-columns:1fr 1fr 1fr}.image-grid.cols-1{grid-template-columns:1fr}
+@media(max-width:768px){.image-grid.cols-2,.image-grid.cols-3{grid-template-columns:1fr}}
+.img-placeholder{background:var(--surface2);border:2px dashed var(--border-strong);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;color:var(--text-muted);transition:border-color .3s}
+.img-placeholder:hover{border-color:var(--accent)}
+.img-placeholder .ph-icon{font-size:2rem;margin-bottom:.5rem;opacity:.4}
+.img-placeholder .ph-label{font-size:.72rem;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.img-placeholder .ph-size{font-size:.6rem;margin-top:.25rem;opacity:.5}
+.img-placeholder.tall{min-height:400px}
+.insight-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem}
+@media(max-width:768px){.insight-grid{grid-template-columns:1fr}}
+.insight-card{padding:1.5rem;border-left:2px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0}
+.insight-card h4{font-size:.9rem;margin-bottom:.3rem}
+.insight-card p{font-size:.78rem;color:var(--text-dim);line-height:1.55}
+.screen-grid{display:grid;grid-template-columns:1fr;gap:.75rem;margin-top:0}
+.screen-mini{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.25rem;transition:all .3s}
+.screen-mini:hover{border-color:var(--accent);transform:translateY(-2px)}
+.screen-mini .screen-name{font-family:var(--mono);font-size:.6rem;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.25rem}
+.screen-mini h4{font-size:.85rem;margin-bottom:.2rem}
+.screen-mini p{font-size:.72rem;color:var(--text-dim);line-height:1.45}
+.takeaway-list{margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:768px){.takeaway-list{grid-template-columns:1fr}}
+.takeaway{display:flex;gap:1rem;align-items:flex-start;padding:1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:border-color .3s}
+.takeaway:hover{border-color:var(--accent)}
+.takeaway-num{font-family:var(--serif);font-size:1.5rem;color:var(--accent);line-height:1;flex-shrink:0;width:24px}
+.takeaway h4{font-size:.85rem;margin-bottom:.2rem}
+.takeaway p{font-size:.75rem;color:var(--text-dim);line-height:1.5}
+.case-footer{text-align:center;padding:4rem 2rem 3rem;color:var(--text-muted);font-size:.72rem;border-top:1px solid var(--border)}
+.case-footer .logo{font-family:var(--serif);font-size:1.3rem;color:var(--text);margin-bottom:.5rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+</style>
+</head>
+<body>
+<nav class="case-nav"><div class="brand"><em>Dronos</em></div><div class="nav-links"><a href="#overview">Overview</a><a href="#users">Users</a><a href="#userflow">Flows</a><a href="#wireframes">Wireframes</a><a href="#visuals">Visuals</a><a href="#outcomes">Outcomes</a></div></nav>
+
+<section class="hero">
+  <div class="hero-label">UI / UX Case Study</div>
+  <h1><em>Dronos</em></h1>
+  <p class="hero-sub">An internal drone inventory management and booking system for Aerodyne's operations team — from booking to pickup and return.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><div class="val">30+</div><div class="lbl">Screens</div></div>
+    <div class="hero-meta-item"><div class="val">2</div><div class="lbl">Portals</div></div>
+    <div class="hero-meta-item"><div class="val">8</div><div class="lbl">States</div></div>
+    <div class="hero-meta-item"><div class="val">7</div><div class="lbl">Filters</div></div>
+  </div>
+  <div class="scroll-hint">Scroll<span></span></div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section id="overview">
+  <div class="section-label">01 — Overview</div>
+  <h2 class="section-title">Internal drone fleet management for Aerodyne.</h2>
+  <p class="section-body">Dronos is Aerodyne's internal mobile platform for managing drone equipment inventory, bookings, and handoff operations — serving field operators and inventory admins through a unified system.</p>
+  <div class="overview-grid">
+    <div class="overview-card"><div class="card-number">01</div><div class="card-title">Client</div><p class="card-desc">Aerodyne Group — internal ops team</p></div>
+    <div class="overview-card"><div class="card-number">02</div><div class="card-title">Platform</div><p class="card-desc">Mobile (iOS & Android), 390×844pt</p></div>
+    <div class="overview-card"><div class="card-number">03</div><div class="card-title">Tools</div><p class="card-desc">Figma — prototyping & design system</p></div>
+    <div class="overview-card"><div class="card-number">04</div><div class="card-title">Domain</div><p class="card-desc">DJI — Avata, Mavic, Matrice, Inspire</p></div>
+  </div>
+  <div class="metrics-row" style="margin-top:2.5rem">
+    <div class="metric"><div class="metric-val">10K</div><div class="metric-label">Total Inventory</div></div>
+    <div class="metric"><div class="metric-val">3K</div><div class="metric-label">Drones</div></div>
+    <div class="metric"><div class="metric-val">1.5K</div><div class="metric-label">Payloads</div></div>
+    <div class="metric"><div class="metric-val">4K</div><div class="metric-label">Batteries</div></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section>
+  <div class="section-label">02 — Problem</div>
+  <h2 class="section-title">Fragmented internal workflows cost time and equipment.</h2>
+  <p class="section-body">Before Dronos, bookings were tracked via spreadsheets and chat — causing scheduling conflicts, unclear availability, and no audit trail for handoffs.</p>
+  <div class="insight-grid">
+    <div class="insight-card"><h4>No real-time visibility</h4><p>Operators couldn't see which drones were available without calling the warehouse.</p></div>
+    <div class="insight-card"><h4>Manual approval chain</h4><p>Multi-level approvals happened over email with no centralized tracking.</p></div>
+    <div class="insight-card"><h4>Handoff gaps</h4><p>No verification process for pickup/return — accountability issues for missing assets.</p></div>
+    <div class="insight-card"><h4>Schedule conflicts</h4><p>Double-bookings were common for high-demand equipment like Matrice 300.</p></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section id="users">
+  <div class="section-label">03 — Users</div>
+  <h2 class="section-title">Two internal roles, one system.</h2>
+  <div class="two-col">
+    <div class="persona-compact">
+      <h3>Operator</h3>
+      <div class="role">Booking Portal</div>
+      <p>Field operators who browse inventory, book drones with payloads/batteries, and complete QR-verified pickups.</p>
+      <div class="goal-tags"><span class="goal-tag">Browse inventory</span><span class="goal-tag">View specs</span><span class="goal-tag">Book equipment</span><span class="goal-tag">Track status</span><span class="goal-tag">QR pickup</span><span class="goal-tag">Favorites</span></div>
+    </div>
+    <div class="persona-compact">
+      <h3>Inventory Admin</h3>
+      <div class="role">Fleet Management Portal</div>
+      <p>Warehouse managers who review bookings, approve/decline requests, manage QR handoffs, and oversee fleet scheduling.</p>
+      <div class="goal-tags"><span class="goal-tag">Dashboard stats</span><span class="goal-tag">Accept / Decline</span><span class="goal-tag">QR scanner</span><span class="goal-tag">Checklist</span><span class="goal-tag">Gantt schedule</span><span class="goal-tag">7 filters</span></div>
+    </div>
+  </div>
+  <div class="metrics-row" style="margin-top:2rem">
+    <div class="metric"><div class="metric-val">202</div><div class="metric-label">Total Bookings</div></div>
+    <div class="metric"><div class="metric-val">150</div><div class="metric-label">Confirmed</div></div>
+    <div class="metric"><div class="metric-val">52</div><div class="metric-label">Pending</div></div>
+    <div class="metric"><div class="metric-val">8</div><div class="metric-label">Timeline Steps</div></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section id="userflow">
+  <div class="section-label">04 — User Flow</div>
+  <h2 class="section-title">Operator booking journey.</h2>
+  <div class="flow-row">
+    <div class="flow-step"><div class="num">01</div><h4>Home</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">02</div><h4>Inventory</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">03</div><h4>Details + Cart</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">04</div><h4>Form</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">05</div><h4>Tracking</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">06</div><h4>QR Pickup</h4></div>
+  </div>
+  <div class="image-grid cols-1" style="margin-top:2.5rem">
+    <div class="img-placeholder tall"><div class="ph-icon">↗</div><div class="ph-label">Operator Flow Diagram</div><div class="ph-size">Add your user flow image here</div></div>
+  </div>
+
+  <h3 style="font-family:var(--serif);font-size:1.15rem;margin-top:3rem;margin-bottom:.5rem">Admin approval journey.</h3>
+  <div class="flow-row">
+    <div class="flow-step"><div class="num">01</div><h4>Dashboard</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">02</div><h4>Booking List</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">03</div><h4>Accept / Decline</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">04</div><h4>Ready</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">05</div><h4>QR Scan</h4></div><div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="num">06</div><h4>Schedule</h4></div>
+  </div>
+  <div class="image-grid cols-1" style="margin-top:2.5rem">
+    <div class="img-placeholder tall"><div class="ph-icon">↗</div><div class="ph-label">Admin Flow Diagram</div><div class="ph-size">Add your admin flow image here</div></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section id="wireframes">
+  <div class="section-label">05 — Wireframes</div>
+  <h2 class="section-title">Low-fidelity structure exploration.</h2>
+  <p class="section-body">Wireframes validated information hierarchy and the 8-step approval timeline with Aerodyne's operations team.</p>
+  <div class="image-grid cols-3">
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">Home Screen</div><div class="ph-size">Wireframe</div></div>
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">Inventory Grid</div><div class="ph-size">Wireframe</div></div>
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">Drone Details</div><div class="ph-size">Wireframe</div></div>
+  </div>
+  <div class="image-grid cols-3" style="margin-top:1.25rem">
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">Booking Form</div><div class="ph-size">Wireframe</div></div>
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">Order Tracking</div><div class="ph-size">Wireframe</div></div>
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">QR Pickup</div><div class="ph-size">Wireframe</div></div>
+  </div>
+  <div class="image-grid cols-3" style="margin-top:1.25rem">
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">Admin Dashboard</div><div class="ph-size">Wireframe</div></div>
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">Accept / Decline</div><div class="ph-size">Wireframe</div></div>
+    <div class="img-placeholder"><div class="ph-icon">☐</div><div class="ph-label">Gantt Schedule</div><div class="ph-size">Wireframe</div></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section id="visuals">
+  <div class="section-label">06 — Visual Designs</div>
+  <h2 class="section-title">High-fidelity screens.</h2>
+  <p class="section-body">Dark-themed UI with teal accent CTAs — optimized for outdoor field use and OLED battery efficiency.</p>
+
+  <h3 style="font-family:var(--serif);font-size:1.1rem;margin-top:2.5rem;margin-bottom:1rem">Operator Portal</h3>
+  <div class="image-grid cols-3">
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Home Dashboard</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Inventory Browse</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Drone Specs</div><div class="ph-size">High-fidelity</div></div>
+  </div>
+  <div class="image-grid cols-3" style="margin-top:1.25rem">
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Cart Summary</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Booking Form</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Order Timeline</div><div class="ph-size">High-fidelity</div></div>
+  </div>
+  <div class="image-grid cols-3" style="margin-top:1.25rem">
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">QR Pickup</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Profile</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Notifications</div><div class="ph-size">High-fidelity</div></div>
+  </div>
+
+  <h3 style="font-family:var(--serif);font-size:1.1rem;margin-top:3rem;margin-bottom:1rem">Admin Portal</h3>
+  <div class="image-grid cols-3">
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Admin Dashboard</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Booking List</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Accept / Decline</div><div class="ph-size">High-fidelity</div></div>
+  </div>
+  <div class="image-grid cols-3" style="margin-top:1.25rem">
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Ready for Pickup</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">QR Scanner</div><div class="ph-size">High-fidelity</div></div>
+    <div class="img-placeholder"><div class="ph-icon">◉</div><div class="ph-label">Gantt Schedule</div><div class="ph-size">High-fidelity</div></div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section>
+  <div class="section-label">07 — Design System</div>
+  <h2 class="section-title">Components & tokens.</h2>
+  <div class="two-col" style="margin-top:1.5rem">
+    <div>
+      <h3 style="font-family:var(--serif);font-size:1.05rem;margin-bottom:.75rem">Color Palette</h3>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <div style="text-align:center"><div style="width:52px;height:52px;border-radius:10px;background:#0d1117"></div><div style="font-size:.58rem;font-family:var(--mono);color:var(--text-dim);margin-top:.25rem">BG</div></div>
+        <div style="text-align:center"><div style="width:52px;height:52px;border-radius:10px;background:#161b22"></div><div style="font-size:.58rem;font-family:var(--mono);color:var(--text-dim);margin-top:.25rem">Surface</div></div>
+        <div style="text-align:center"><div style="width:52px;height:52px;border-radius:10px;background:#2dd4bf"></div><div style="font-size:.58rem;font-family:var(--mono);color:var(--text-dim);margin-top:.25rem">Primary</div></div>
+        <div style="text-align:center"><div style="width:52px;height:52px;border-radius:10px;background:#e8e6e3;border:1px solid #d6d3d1"></div><div style="font-size:.58rem;font-family:var(--mono);color:var(--text-dim);margin-top:.25rem">Text</div></div>
+        <div style="text-align:center"><div style="width:52px;height:52px;border-radius:10px;background:#ef4444"></div><div style="font-size:.58rem;font-family:var(--mono);color:var(--text-dim);margin-top:.25rem">Decline</div></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--serif);font-size:1.05rem;margin-bottom:.75rem">Components</h3>
+      <div class="goal-tags">
+        <span class="goal-tag">Status Badges ×7</span><span class="goal-tag">Bottom Nav (User)</span><span class="goal-tag">Bottom Nav (Admin)</span><span class="goal-tag">QR Generator</span><span class="goal-tag">QR Scanner</span><span class="goal-tag">Spec Cards</span><span class="goal-tag">Qty Controls</span><span class="goal-tag">Filter Chips</span><span class="goal-tag">Timeline</span><span class="goal-tag">Gantt Bars</span><span class="goal-tag">Drone Cards</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section>
+  <div class="section-label">08 — Screen Inventory</div>
+  <h2 class="section-title">30+ screens at a glance.</h2>
+  <div class="two-col" style="gap:1.5rem">
+    <div>
+      <h3 style="font-family:var(--serif);font-size:1.05rem;margin-bottom:.75rem">Operator — 16 screens</h3>
+      <div class="screen-grid">
+        <div class="screen-mini"><div class="screen-name">Home</div><h4>Dashboard</h4><p>Reservations, recommended drones, upcoming</p></div>
+        <div class="screen-mini"><div class="screen-name">Inventory</div><h4>Browse Grid</h4><p>4 categories, stock status, favorites</p></div>
+        <div class="screen-mini"><div class="screen-name">Details</div><h4>Specs + Add-ons</h4><p>Weight, flight, range, payloads</p></div>
+        <div class="screen-mini"><div class="screen-name">Cart</div><h4>Booking Summary</h4><p>Items, quantities, confirm</p></div>
+        <div class="screen-mini"><div class="screen-name">Form</div><h4>Booking Form</h4><p>Dates, location, attachment</p></div>
+        <div class="screen-mini"><div class="screen-name">Tracking</div><h4>8-Step Timeline</h4><p>Placed → Approved → Done</p></div>
+        <div class="screen-mini"><div class="screen-name">Pickup</div><h4>QR Code</h4><p>Verify, terms, collect</p></div>
+        <div class="screen-mini"><div class="screen-name">Extras</div><h4>Profile, Alerts, Filters</h4><p>Settings, search, panels</p></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-family:var(--serif);font-size:1.05rem;margin-bottom:.75rem">Admin — 14 screens</h3>
+      <div class="screen-grid">
+        <div class="screen-mini"><div class="screen-name">Home</div><h4>Dashboard</h4><p>202 total, 150 confirmed, 52 pending</p></div>
+        <div class="screen-mini"><div class="screen-name">List</div><h4>Booking List</h4><p>7 status filters, date grouping</p></div>
+        <div class="screen-mini"><div class="screen-name">Review</div><h4>Accept / Decline</h4><p>Equipment, customer, dual CTA</p></div>
+        <div class="screen-mini"><div class="screen-name">Ready</div><h4>Pickup Confirm</h4><p>QR input, scan, confirm</p></div>
+        <div class="screen-mini"><div class="screen-name">Scanner</div><h4>QR Scanner</h4><p>Camera, viewfinder, verify</p></div>
+        <div class="screen-mini"><div class="screen-name">Schedule</div><h4>Gantt Calendar</h4><p>Weekly checkout/return bars</p></div>
+        <div class="screen-mini"><div class="screen-name">Checkout</div><h4>Handoff View</h4><p>Timeline, pickup address</p></div>
+        <div class="screen-mini"><div class="screen-name">Extras</div><h4>Checklist, Filters</h4><p>Pre-handoff, date filters</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div></div>
+
+<section id="outcomes">
+  <div class="section-label">09 — Takeaways</div>
+  <h2 class="section-title">What shaped the design.</h2>
+  <div class="takeaway-list">
+    <div class="takeaway"><div class="takeaway-num">1</div><div><h4>8-step approval mirrors Aerodyne's ops</h4><p>Multi-level authorization matches real drone handoff protocols.</p></div></div>
+    <div class="takeaway"><div class="takeaway-num">2</div><div><h4>QR eliminates paper handoffs</h4><p>Digital audit trail for every checkout and return.</p></div></div>
+    <div class="takeaway"><div class="takeaway-num">3</div><div><h4>Bundles reduce booking errors</h4><p>Recommended payloads/batteries prevent missing accessories.</p></div></div>
+    <div class="takeaway"><div class="takeaway-num">4</div><div><h4>Gantt prevents conflicts</h4><p>Visual calendar eliminates double-bookings for high-demand gear.</p></div></div>
+  </div>
+</section>
+
+<footer class="case-footer">
+  <div class="logo"><em>Dronos</em></div>
+  <p>Internal Drone Inventory & Booking System — Aerodyne Group</p>
+  <p style="margin-top:.35rem">Designed in Figma</p>
+</footer>
+</body>
+</html>
