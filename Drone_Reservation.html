@@ -83,6 +83,25 @@ section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
 .case-footer .logo{font-family:var(--serif);font-size:1.3rem;color:var(--text);margin-bottom:.5rem}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+  .ph-size {
+  width: 100%;
+}
+
+.userflow-img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* Optional - Make container responsive */
+.img-placeholder {
+  width: 100%;
+}
+
+.image-grid {
+  width: 100%;
+}
 </style>
 </head>
 <body>
@@ -175,9 +194,18 @@ section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
     <div class="flow-step"><div class="num">05</div><h4>Tracking</h4></div><div class="flow-arrow">→</div>
     <div class="flow-step"><div class="num">06</div><h4>QR Pickup</h4></div>
   </div>
-   <div class="image-grid cols-1" style="margin-top:2.5rem">
-    <div class="img-placeholder tall"><div class="ph-icon">↗</div><div class="ph-label">Admin Flow Diagram</div><div class="ph-size"><img src="./images/user1.png" class="img-responsive" alt="userflow"/></div></div>
+  
+  <div class="image-grid cols-1" style="margin-top:2.5rem">
+  <div class="img-placeholder tall">
+    <div class="ph-icon">↗</div>
+    <div class="ph-label">Admin Flow Diagram</div>
+
+    <div class="ph-size">
+      <img src="./images/user1.png" class="img-responsive userflow-img" alt="userflow"/>
+    </div>
+
   </div>
+</div>
 
   <h3 style="font-family:var(--serif);font-size:1.15rem;margin-top:3rem;margin-bottom:.5rem">Admin approval journey.</h3>
   <div class="flow-row">
@@ -328,8 +356,8 @@ section{padding:5rem 2rem;max-width:1100px;margin:0 auto}
 
 <footer class="case-footer">
   <div class="logo"><em>Dronos</em></div>
-  <p>Internal Drone Inventory & Booking System — Aerodyne Group</p>
-  <p style="margin-top:.35rem">Designed in Figma</p>
+  <!-- <p>Internal Drone Inventory & Booking System — Aerodyne Group</p>
+  <p style="margin-top:.35rem">Designed in Figma</p> -->
 </footer>
 </body>
 </html>
